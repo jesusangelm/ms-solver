@@ -1,7 +1,7 @@
 require_relative '../config/environment'
 
-module MinesweeperSolver
-  def self.search_empty_spot(board)
+class MinesweeperSolver
+  def search_empty_spot(board)
     coordinates = []
     board.each_with_index do |row, index_row|
       row.each_with_index do |column, index_col|
@@ -11,7 +11,7 @@ module MinesweeperSolver
     coordinates
   end
 
-  def self.find_neighbors(board, row, col)
+  def find_neighbors(board, row, col)
     neighbors = []
     range = (0..(board.size - 1))
 
@@ -27,7 +27,7 @@ module MinesweeperSolver
     neighbors
   end
 
-  def self.bomb_counter(board, empty_spots)
+  def bomb_counter(board, empty_spots)
     empty_spots.each_with_index do |loc, index|
       vecinos = find_neighbors(board, loc[:row], loc[:col])
       bombas = vecinos.find_all { |n| n == '*' }.size
@@ -36,7 +36,7 @@ module MinesweeperSolver
     empty_spots
   end
 
-  def self.find_solution(problem_board)
+  def find_solution(problem_board)
     empty_spot_locations = search_empty_spot(problem_board)
     bomb_count = bomb_counter(problem_board, empty_spot_locations)
 

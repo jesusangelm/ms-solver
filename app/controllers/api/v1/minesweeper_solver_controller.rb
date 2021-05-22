@@ -4,7 +4,8 @@ class Api::V1::MinesweeperSolverController < ApplicationController
   def index
     board_to_solve = Challenge::MsRequester.new_board
     problem = Marshal.dump(board_to_solve)
-    board_solved = MinesweeperSolver.find_solution(board_to_solve)
+    solver = MinesweeperSolver.new
+    board_solved = solver.find_solution(board_to_solve)
 
     @response = {
       problem: Marshal.load(problem),
