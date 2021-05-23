@@ -4,7 +4,9 @@ module Challenge
 
     def self.new_board
       response = RestClient.get(URL)
-      JSON.parse(response)
+      { error: false, board: JSON.parse(response) }
+    rescue Errno::ENETUNREACH => e
+      { error: true, message: e }
     end
   end
 end
